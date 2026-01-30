@@ -38,7 +38,7 @@ const standings = ref<Team[]>([
           </tr>
         </thead>
         <tbody>
-          <tr v-for="team in standings" :key="team.position" :class="{ 'top-three': team.position <= 3 }">
+          <tr v-for="team in standings" :key="team.position">
             <td class="position">{{ team.position }}</td>
             <td class="team-name">{{ team.name }}</td>
             <td>{{ team.played }}</td>
@@ -55,8 +55,7 @@ const standings = ref<Team[]>([
 
 <style scoped>
 .team-standings {
-  padding: 2rem;
-  max-width: 900px;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -97,10 +96,6 @@ tr:last-child td {
 
 tr:hover {
   background: var(--color-background-mute);
-}
-
-.top-three {
-  background: rgba(72, 187, 120, 0.1);
 }
 
 .position {

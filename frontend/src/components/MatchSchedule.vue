@@ -58,132 +58,174 @@ function formatDate(dateString: string): string {
 
 <template>
   <div class="match-schedule">
-    <h2>Upcoming Matches</h2>
+    <div class="schedule-header">
+      <h2>League Schedule</h2>
+      <span class="calendar-icon">📅</span>
+    </div>
+
     <div class="schedule-container">
-      <div v-for="match in matches" :key="match.id" class="match-card">
+      <div v-for="match in matches.slice(0, 3)" :key="match.id" class="match-card">
         <div class="match-date">
-          <div class="date">{{ formatDate(match.date) }}</div>
-          <div class="time">{{ match.time }}</div>
+          <div class="date-label">
+            {{ formatDate(match.date).split(' ')[0] }}
+          </div>
+          <div class="date-value">
+            {{ formatDate(match.date).split(' ').slice(1).join(' ') }}
+          </div>
         </div>
         <div class="match-details">
           <div class="teams">
-            <div class="team home">{{ match.homeTeam }}</div>
-            <div class="vs">vs</div>
-            <div class="team away">{{ match.awayTeam }}</div>
+            <div class="team">{{ match.homeTeam }}</div>
+            <div class="vs">vs.</div>
+            <div class="team">{{ match.awayTeam }}</div>
           </div>
           <div class="course">
             <span class="course-icon">📍</span>
-            {{ match.course }}
+            <span>{{ match.course }} • {{ match.time }} Uhr</span>
           </div>
         </div>
       </div>
+
+      <button class="full-schedule-btn">
+        Full Season Schedule
+      </button>
     </div>
   </div>
 </template>
 
 <style scoped>
 .match-schedule {
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-h2 {
-  color: var(--color-heading);
-  margin-bottom: 1.5rem;
-  font-size: 2rem;
-}
-
-.schedule-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
-}
-
-.match-card {
   background: var(--color-background-soft);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
   padding: 1.5rem;
-  border: 2px solid var(--color-border);
-  transition: all 0.3s ease;
+  max-width: 100%;
 }
 
-.match-card:hover {
-  border-color: var(--color-border-hover);
-  transform: translateY(-4px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-}
-
-.match-date {
+.schedule-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 1.5rem;
 }
 
-.date {
-  font-weight: 600;
-  font-size: 1rem;
-  color: var(--color-heading);
+.schedule-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-white);
+  margin: 0;
 }
 
-.time {
-  font-weight: 500;
-  color: var(--color-text);
-  background: var(--color-background-mute);
-  padding: 0.25rem 0.75rem;
-  border-radius: 4px;
+.calendar-icon {
+  font-size: 1.5rem;
+  opacity: 0.5;
 }
 
-.match-details {
+.schedule-container {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
+.match-card {
+  background: var(--bg-navy-light);
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  transition: all 0.3s ease;
+  display: flex;
+  gap: 1rem;
+}
+
+.match-card:hover {
+  border-color: var(--color-border-hover);
+  background: var(--color-background-mute);
+}
+
+.match-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 60px;
+  padding: 0.5rem;
+  background: var(--color-background-soft);
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+}
+
+.date-label {
+  font-size: 0.75rem;
+  color: var(--accent-blue);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.date-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-white);
+  margin-top: 0.25rem;
+}
+
+.match-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
 .teams {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 
 .team {
-  flex: 1;
   font-weight: 600;
-  font-size: 0.95rem;
-}
-
-.team.home {
-  text-align: right;
-}
-
-.team.away {
-  text-align: left;
+  font-size: 0.875rem;
+  color: var(--text-white);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .vs {
-  padding: 0 0.5rem;
-  font-weight: 700;
-  color: var(--color-text);
-  font-size: 0.875rem;
+  color: var(--text-gray-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
 }
 
 .course {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.875rem;
-  color: var(--color-text);
-  background: var(--color-background-mute);
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
+  font-size: 0.75rem;
+  color: var(--text-gray-medium);
 }
 
 .course-icon {
-  font-size: 1rem;
+  font-size: 0.875rem;
+}
+
+.full-schedule-btn {
+  width: 100%;
+  padding: 0.875rem;
+  background: transparent;
+  border: 1px solid var(--accent-blue);
+  color: var(--accent-blue);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.full-schedule-btn:hover {
+  background: var(--accent-blue);
+  color: white;
+  transform: translateY(-1px);
 }
 
 @media (max-width: 768px) {
@@ -191,8 +233,19 @@ h2 {
     padding: 1rem;
   }
 
-  .schedule-container {
-    grid-template-columns: 1fr;
+  .match-card {
+    flex-direction: column;
+  }
+
+  .match-date {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    min-width: auto;
+  }
+
+  .team {
+    font-size: 0.8rem;
   }
 }
 </style>

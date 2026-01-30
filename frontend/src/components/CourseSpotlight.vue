@@ -96,7 +96,6 @@ const course = ref<Course>({
 
 <style scoped>
 .course-spotlight {
-  padding: 2rem;
   max-width: 900px;
   margin: 0 auto;
 }

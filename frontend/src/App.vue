@@ -1,23 +1,20 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+import NavBar from './components/NavBar.vue'
 </script>
 
 <template>
   <div id="app">
-    <header>
-      <div class="header-content">
-        <div class="logo">
-          <span class="disc-icon">🥏</span>
-          <h1>Berliner Discgolf Liga</h1>
-        </div>
-      </div>
-    </header>
-
+    <NavBar />
     <RouterView />
-
     <footer>
       <div class="footer-content">
-        <p>&copy; 2026 Berliner Discgolf Liga. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="#">Terms</a>
+          <a href="#">Privacy</a>
+          <a href="#">Help Center</a>
+        </div>
+        <p>&copy; 2026 Discgolfliga.de. Alle Rechte vorbehalten.</p>
       </div>
     </footer>
   </div>
@@ -30,62 +27,49 @@ import { RouterView } from 'vue-router'
   flex-direction: column;
 }
 
-header {
-  background: var(--color-background-soft);
-  border-bottom: 2px solid var(--color-border);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.header-content {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 1rem 2rem;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.disc-icon {
-  font-size: 2.5rem;
-}
-
-.logo h1 {
-  font-size: 1.75rem;
-  color: var(--color-heading);
-  font-weight: 700;
-  margin: 0;
-}
-
 footer {
   margin-top: auto;
-  background: var(--color-background-soft);
-  border-top: 2px solid var(--color-border);
+  background: var(--color-background);
+  border-top: 1px solid var(--color-border);
   padding: 2rem;
 }
 
 .footer-content {
   max-width: 1400px;
   margin: 0 auto;
-  text-align: center;
-  color: var(--color-text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.footer-links a {
+  color: var(--text-gray-medium);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: var(--text-white);
+}
+
+.footer-content p {
+  font-size: 0.875rem;
+  color: var(--text-gray-muted);
+  margin: 0;
 }
 
 @media (max-width: 768px) {
-  .header-content {
-    padding: 1rem;
-  }
-
-  .logo h1 {
-    font-size: 1.25rem;
-  }
-
-  .disc-icon {
-    font-size: 2rem;
+  .footer-links {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
   }
 }
 </style>

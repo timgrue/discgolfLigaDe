@@ -20,7 +20,7 @@ A Vue 3 + TypeScript website for the Berliner Discgolf Liga (Berlin Disc Golf Le
 
 ### Prerequisites
 
-- Node.js >= 20.19.0
+- Node.js ^20.19.0 || >=22.12.0
 
 ### Installation
 
